@@ -1,0 +1,4 @@
+
+to wake up screen ??
+echo on > /sys/power/state
+

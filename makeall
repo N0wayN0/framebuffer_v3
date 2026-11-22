@@ -1,0 +1,38 @@
+#!/system/bin/sh
+
+BASE=/data/tcc
+export PATH=$PATH:$BASE
+
+OUTFILE=test
+rm $OUTFILE 2> /dev/null
+
+echo -e "\n\\033[1;33m******* Tiny C Compiler *******"
+echo -ne "\\033[0;39m"
+tcc -Wall *.c \
+-I/$BASE/include -L$BASE/lib -static -lm -lcrypt -lrt -lpthread -o $OUTFILE  $BASE/lib/fix.o 2>&1 | \
+grep -v FIXME #| grep --color=auto -e ".[^ ]*\.[ch]:[0-9]*"
+
+if [ -f $OUTFILE ]; then
+    echo
+    echo -e "\\033[1;32mSuccess"
+    echo -e "\\033[1;30mBinary: $OUTFILE\\033[0;39m"
+    stat -c "%n %s %A" $OUTFILE
+else
+    echo -e "\\033[1;31mCompilation error\\033[0;39m"
+
+fi
+echo -ne "\\033[0;39m"
+
+exit
+
+echo -ne "\\033[1;29mwhite 29\\033[0;39m"
+echo -ne "\\033[1;30mgray 30\\033[0;39m"
+echo -ne "\\033[1;31mred 31\\033[0;39m"
+echo -ne "\\033[1;32mgreen 32\\033[0;39m"
+echo -ne "\\033[1;33myellow 33\\033[0;39m"
+echo -ne "\\033[1;34mblue 34\\033[0;39m"
+echo -ne "\\033[1;35mpurple 35\\033[0;39m"
+echo -ne "\\033[1;36mlight 36\\033[0;39m"
+echo -e "\\033[1;37mwhite 37\\033[0;39m"
+
+echo -e "\\033[1;33m ******* Mounting Linux file system ********\\033[0;39m"
